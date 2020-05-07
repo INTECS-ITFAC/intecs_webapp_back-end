@@ -4,8 +4,10 @@ import createEvent from '../../commandService/EventCommandService';
 
 export class EventController extends CrudController {
     public create(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response): void {
-        createEvent(req.body);
-        res.json({ message: 'Post /event request received', data: req.body });
+        createEvent(req.body, (result: any) => {
+            if (result) { res.json({ status: true, message: 'data inserted', data: result }); }
+            else { res.json({ status: false, message: 'internal server error', data: null }); }
+        });
     }
 
     public read(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response): void {

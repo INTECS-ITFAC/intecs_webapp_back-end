@@ -24,8 +24,14 @@ var EventController = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     EventController.prototype.create = function (req, res) {
-        EventCommandService_1.default(req.body);
-        res.json({ message: 'Post /event request received', data: req.body });
+        EventCommandService_1.default(req.body, function (result) {
+            if (result) {
+                res.json({ status: true, message: 'data inserted', data: result });
+            }
+            else {
+                res.json({ status: false, message: 'internal server error', data: null });
+            }
+        });
     };
     EventController.prototype.read = function (req, res) {
         res.json({ message: 'GET /event request received' });
