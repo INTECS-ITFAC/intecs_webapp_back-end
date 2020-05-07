@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "touch-for-windows": "^1.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.3",
