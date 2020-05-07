@@ -10,7 +10,9 @@ const dbConnection = (callback: any) => {
         assert.equal(null, err);
         console.log("Connected successfully to server"
         );
-        db = client.db(dbName);
+        db = client.db(dbName
+            
+            );
         callback(db);
     });
 
