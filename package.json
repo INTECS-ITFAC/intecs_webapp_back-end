@@ -2,10 +2,11 @@
   "name": "future-careers_back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "dsrc/index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "start": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "tsc && gcloud app deploy --quiet"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,9 @@
     "pretty-quick": "^2.0.1",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
+  },
+  "engines": {
+    "node": "10"
   },
   "husky": {
     "hooks": {

@@ -4,6 +4,7 @@ dotenv.config();
 let path;
 switch (process.env.NODE_ENV) {
   case "production":
+    //Using Travis CI Env Variables on Build
     break;
   default:
     path = `${__dirname}/../.env`;
