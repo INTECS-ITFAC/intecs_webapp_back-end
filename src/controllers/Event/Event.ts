@@ -7,7 +7,7 @@ export class EventController extends CrudController {
     }
 
     public read(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response): void {
-        res.json({ message: 'GET /user request received' });
+        res.json({ message: 'GET /event request received' });
     }
 
     public update(req: Request<import("express-serve-static-core").ParamsDictionary>, res: Response): void {

@@ -23,7 +23,7 @@ var EventController = /** @class */ (function (_super) {
         throw new Error("Method not implemented.");
     };
     EventController.prototype.read = function (req, res) {
-        res.json({ message: 'GET /user request received' });
+        res.json({ message: 'GET /event request received' });
     };
     EventController.prototype.update = function (req, res) {
         throw new Error("Method not implemented.");
