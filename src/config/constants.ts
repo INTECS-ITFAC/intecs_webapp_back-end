@@ -1,2 +1,14 @@
-export const PORT = process.env.PORT || 4000;
-export const dbUrl="mongodb://localhost:27017"
+import * as dotenv from "dotenv";
+
+dotenv.config();
+let path;
+switch (process.env.NODE_ENV) {
+  case "production":
+    break;
+  default:
+    path = `${__dirname}/../.env`;
+}
+dotenv.config({ path: path });
+
+export const PORT = process.env.PORT;
+export const dbUrl = process.env.DBURL;
