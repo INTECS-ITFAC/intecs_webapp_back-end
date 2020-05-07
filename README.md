@@ -12,9 +12,15 @@ intall node modules insite dir
 
 `npm i`
 
-##Start app
+##nodemon install
+`npm install -g nodemon`
 
+##Start app
+`nodemon dist/index.js` or
 `npm run dev`
+
+## touch-for-windows
+`npm install -g touch-for-windows`
 
 ##Create New Controller
 
