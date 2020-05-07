@@ -5,6 +5,7 @@ let path;
 switch (process.env.NODE_ENV) {
   case "production":
     //Using Travis CI Env Variables on Build
+    path = `${__dirname}/../.env.prod`;
     break;
   default:
     path = `${__dirname}/../.env`;
