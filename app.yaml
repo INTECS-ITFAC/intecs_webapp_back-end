@@ -1,4 +1,16 @@
 runtime: nodejs12
+env: standard
 instance_class: F1
+
+handlers:
+  - url: .*
+    script: auto
+
 env_variables:
   DBURL: "mongodb://localhost:27017"
+
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_instances: 0
+  max_instances: 2
