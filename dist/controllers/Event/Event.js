@@ -24,9 +24,8 @@ var EventController = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     EventController.prototype.create = function (req, res) {
-        var data = req.body;
-        EventCommandService_1.default(data);
-        res.json({ message: 'Post /event request received', data: data });
+        EventCommandService_1.default(req.body);
+        res.json({ message: 'Post /event request received', data: req.body });
     };
     EventController.prototype.read = function (req, res) {
         res.json({ message: 'GET /event request received' });
