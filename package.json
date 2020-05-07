@@ -2,20 +2,23 @@
   "name": "future-careers_back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "dsrc/index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "start": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "tsc && gcloud app deploy --quiet"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.5.7"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
+    "@types/dotenv": "^8.2.0",
     "@types/node": "^13.13.5",
     "husky": "^4.2.5",
     "nodemon": "^2.0.3",
@@ -23,6 +26,9 @@
     "pretty-quick": "^2.0.1",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
+  },
+  "engines": {
+    "node": "12.x.x"
   },
   "husky": {
     "hooks": {
