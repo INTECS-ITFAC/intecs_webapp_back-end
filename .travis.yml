@@ -7,16 +7,30 @@ warnings_are_errors: true
 
 jobs:
   include:
-    - stage: Push-Requests
-      if: ( branch = master || branch = staging || branch = dev ) AND type = push
+    - stage: Master-Push-Requests
+      if: branch = master AND type = push
       script:
         - echo "CI/CD Starting for $BRANCH"
         - jq ".scripts.start = \"node dist/index.js\"" package.json > package_updated.json && mv package_updated.json package.json
         - npm install --production
+        - python env_injection.py
         - npm run build
         - echo $SERVICE_ACCOUNT > /tmp/$TRAVIS_BUILD_ID.json
         - gcloud auth activate-service-account --key-file /tmp/$TRAVIS_BUILD_ID.json
-        - gcloud --quiet --project $PROJECT_ID app deploy app.yaml --promote --stop-previous-version
+        - gcloud --quiet --project $PROJECT_ID app deploy app.yaml --version $STAGE --promote
+      after_success:
+        - echo "Deployed Successfully"
+    - stage: Dev-Stage-Push-Requests
+      if: ( branch = staging || branch = dev ) AND type = push
+      script:
+        - echo "CI/CD Starting for $BRANCH"
+        - jq ".scripts.start = \"node dist/index.js\"" package.json > package_updated.json && mv package_updated.json package.json
+        - npm install --production
+        - python env_injection.py
+        - npm run build
+        - echo $SERVICE_ACCOUNT > /tmp/$TRAVIS_BUILD_ID.json
+        - gcloud auth activate-service-account --key-file /tmp/$TRAVIS_BUILD_ID.json
+        - gcloud --quiet --project $PROJECT_ID app deploy app.yaml --version $STAGE --no-promote
       after_success:
         - echo "Deployed Successfully"
     - stage: Dev-PR
