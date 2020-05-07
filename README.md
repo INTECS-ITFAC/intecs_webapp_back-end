@@ -1,46 +1,27 @@
 # future-careers_back-end
 
-## Available Scripts
+## <a name="quick-start"></a>Quick Start
 
-##Install typescript 
+1. **Install Node Modules:**
 
-`npm i -g typescript`
+   ```bash
+   $ npm install
+   ```
 
-##Node package manager
+2. **Serve Locally:**
 
-intall node modules insite dir
+   ```bash
+   $ npm start
+   ```
 
-`npm i`
+## Create New Controller
 
-##nodemon install
-`npm install -g nodemon`
+**eg: create user controller:**
 
-##Start app
-`nodemon dist/index.js` or
-`npm run dev`
+Create File: `src/controllers/User/User.ts`
 
-## touch-for-windows
-`npm install -g touch-for-windows`
+## Create New Route
 
-##Create New Controller
+**eg: create user route:**
 
-eg: create user controller
-
-create dir:
-`mkdir src/controllers/User`
-create file:
-`touch src/controllers/User/User.ts`
-
-##Create New Route 
-
-eg: create user route
-
-create dir:
-`mkdir src/routes/User`
-create file:
-`touch src/routes/User/User.ts`
-
-##make sure to build your app before start 
-(ts files need to convert in to js)
-`tsc --watch --preserveWatchOutput'
-
+Create File: `src/routes/User/User.ts`
