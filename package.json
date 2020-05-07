@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/express": "^4.17.3",
     "concurrently": "^5.1.0",
+    "husky": "^4.2.5",
     "nodemon": "^2.0.3"
   }
 }
