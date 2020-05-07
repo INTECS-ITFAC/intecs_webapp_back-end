@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CrudController } from "../CrudController";
-import createEvent from "../../commandService/EventInsertCommandService";
+import createEvent from "../../commandService/Event/EventInsert";
 
 export class EventController extends CrudController {
   public create(

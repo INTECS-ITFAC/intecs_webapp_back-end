@@ -1,5 +1,5 @@
-import { event } from "../models/EventTypes";
-import dbInsertOne from "../database/InsertOne";
+import { event } from "../../models/EventTypes";
+import dbInsertOne from "../../database/InsertOne";
 const collectionName = "Events";
 
 const createEvent = (data: event, callback: any) => {

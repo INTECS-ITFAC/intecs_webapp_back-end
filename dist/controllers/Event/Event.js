@@ -32,8 +32,8 @@ var __importDefault =
   };
 Object.defineProperty(exports, "__esModule", { value: true });
 var CrudController_1 = require("../CrudController");
-var EventInsertCommandService_1 = __importDefault(
-  require("../../commandService/EventInsertCommandService")
+var EventInsert_1 = __importDefault(
+  require("../../commandService/Event/EventInsert")
 );
 var EventController = /** @class */ (function (_super) {
   __extends(EventController, _super);
@@ -41,7 +41,7 @@ var EventController = /** @class */ (function (_super) {
     return (_super !== null && _super.apply(this, arguments)) || this;
   }
   EventController.prototype.create = function (req, res) {
-    EventInsertCommandService_1.default(req.body, function (result) {
+    EventInsert_1.default(req.body, function (result) {
       if (result) {
         res.json({ status: true, message: "data inserted", data: result });
       } else {
