@@ -8,11 +8,8 @@ let db;
 const dbConnection = (callback: any) => {
     MongoClient.connect(dbUrl, (err: any, client: any) => {
         assert.equal(null, err);
-        console.log("Connected successfully to server"
-        );
-        db = client.db(dbName
-            
-            );
+        console.log("Connected successfully to server");
+        db = client.db(dbName);
         callback(db);
     });
 
