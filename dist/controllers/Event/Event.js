@@ -35,6 +35,9 @@ var CrudController_1 = require("../CrudController");
 var EventInsert_1 = __importDefault(
   require("../../commandService/Event/EventInsert")
 );
+var getAllEvents_1 = __importDefault(
+  require("../../queryService/Event/getAllEvents")
+);
 var EventController = /** @class */ (function (_super) {
   __extends(EventController, _super);
   function EventController() {
@@ -54,7 +57,17 @@ var EventController = /** @class */ (function (_super) {
     });
   };
   EventController.prototype.read = function (req, res) {
-    res.json({ message: "GET /event request received" });
+    getAllEvents_1.default(function (result) {
+      if (result) {
+        res.json({ status: true, message: "get all events", data: result });
+      } else {
+        res.json({
+          status: false,
+          message: "internal server error",
+          data: null,
+        });
+      }
+    });
   };
   EventController.prototype.update = function (req, res) {
     throw new Error("Method not implemented.");

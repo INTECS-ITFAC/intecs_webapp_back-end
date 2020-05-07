@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CrudController } from "../CrudController";
 import createEvent from "../../commandService/Event/EventInsert";
+import getAllEvents from "../../queryService/Event/getAllEvents";
 
 export class EventController extends CrudController {
   public create(
@@ -24,7 +25,17 @@ export class EventController extends CrudController {
     req: Request<import("express-serve-static-core").ParamsDictionary>,
     res: Response
   ): void {
-    res.json({ message: "GET /event request received" });
+    getAllEvents((result: any) => {
+      if (result) {
+        res.json({ status: true, message: "get all events", data: result });
+      } else {
+        res.json({
+          status: false,
+          message: "internal server error",
+          data: null,
+        });
+      }
+    });
   }
 
   public update(
