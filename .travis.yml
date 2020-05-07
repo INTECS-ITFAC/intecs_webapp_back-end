@@ -1,0 +1,42 @@
+env:
+  - NODEJS_VER=12.16.2
+
+language: node_js
+node_js: $NODEJS_VER
+warnings_are_errors: true
+
+jobs:
+  include:
+    - stage: Master-Push-Requests
+      if: branch = master AND type = push
+      script:
+        - echo "CI/CD Starting for $BRANCH"
+        - jq ".scripts.start = \"node dist/index.js\"" package.json > package_updated.json && mv package_updated.json package.json
+        - npm install --production
+        - npm run build
+        - echo $SERVICE_ACCOUNT > /tmp/$TRAVIS_BUILD_ID.json
+        - gcloud auth activate-service-account --key-file /tmp/$TRAVIS_BUILD_ID.json
+        - gcloud --quiet --project $PROJECT_ID app deploy app.yaml --version $STAGE --promote
+      after_success:
+        - echo "Deployed Successfully"
+    - stage: Dev-Stage-Push-Requests
+      if: ( branch = staging || branch = dev ) AND type = push
+      script:
+        - echo "CI/CD Starting for $BRANCH"
+        - jq ".scripts.start = \"node dist/index.js\"" package.json > package_updated.json && mv package_updated.json package.json
+        - npm install --production
+        - npm run build
+        - echo $SERVICE_ACCOUNT > /tmp/$TRAVIS_BUILD_ID.json
+        - gcloud auth activate-service-account --key-file /tmp/$TRAVIS_BUILD_ID.json
+        - gcloud --quiet --project $PROJECT_ID app deploy app.yaml --version $STAGE --no-promote
+      after_success:
+        - echo "Deployed Successfully"
+    - stage: Dev-PR
+      if: branch = dev AND type = pull_request
+      script:
+        - echo "CI/CD Starting for Development Pull Request"
+        - jq ".scripts.start = \"node dist/index.js\"" package.json > package_updated.json && mv package_updated.json package.json
+        - npm install --production
+        - npm run build
+      after_success:
+        - echo "CI Successfully"
