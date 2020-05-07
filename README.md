@@ -40,3 +40,7 @@ create dir:
 create file:
 `touch src/routes/User/User.ts`
 
+##make sure to build your app before start 
+(ts files need to convert in to js)
+`tsc --watch --preserveWatchOutput'
+
