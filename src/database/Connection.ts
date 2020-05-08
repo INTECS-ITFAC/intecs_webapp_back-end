@@ -2,7 +2,7 @@ import { dbUrl } from "../config/constants";
 
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
-const dbName = "Intect_Web";
+const dbName = "intect_web";
 let db;
 
 const dbConnection = (callback: any) => {
