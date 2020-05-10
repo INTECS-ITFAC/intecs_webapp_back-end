@@ -1,0 +1,140 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "INTECS web app backend",
+    "description": "Rest APIs for INTECS Web appliation",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Local host"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Events",
+      "description": "API for Events in the system"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get all events in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Events"],
+        "summary": "Create a new Event in system",
+        "requestBody": {
+          "description": "Event Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Event"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the event that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get event with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Event with id",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          },
+          "404": {
+            "description": "Failed. Event not found."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Event": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "imgUrl": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Events": {
+      "type": "object",
+      "properties": {
+        "Events": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Events"
+          }
+        }
+      }
+    }
+  }
+}
