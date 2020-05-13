@@ -18,7 +18,7 @@ export class UserController extends CrudController {
       if (result) {
         res.json({ status: true, message: "get all users", data: result });
       } else {
-        res.json({
+        res.status(400).json({
           status: false,
           message: "internal server error",
           data: null,
