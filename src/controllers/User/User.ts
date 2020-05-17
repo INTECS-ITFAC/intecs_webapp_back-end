@@ -8,9 +8,9 @@ export class UserController extends CrudController {
     req: Request<import("express-serve-static-core").ParamsDictionary>,
     res: Response
   ): void {
-    createUser(req.body, (status: any, message: string) => {
+    createUser(req.body, (status: any, message: string, result: any) => {
       if (status) {
-        res.json({ status: true, message: message });
+        res.json({ status: true, message: message, data: result });
       } else {
         res.status(400).json({
           status: false,

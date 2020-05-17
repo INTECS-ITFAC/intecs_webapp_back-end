@@ -29,7 +29,7 @@ const createUser = (data: user, callback: any) => {
   };
 
   checkExistence(collectionName, user.email, (isExist: any) => {
-    if (isExist) callback(false, "This email is already registered.");
+    if (isExist) callback(false, "This email is already registered.", null);
     else {
       var password = generator.generate({
         length: 10,
@@ -58,7 +58,7 @@ const createUser = (data: user, callback: any) => {
           assert.equal(error, null);
           delete user.password;
           delete user.saltSecret;
-          callback(true, "success");
+          callback(true, "success", user);
         });
       });
     }
