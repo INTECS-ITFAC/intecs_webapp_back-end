@@ -5,7 +5,7 @@ export const router = express.Router({
   strict: true,
 });
 
-router.post("/register", (req: Request, res: Response) => {
+router.post("/", (req: Request, res: Response) => {
   userController.create(req, res);
 });
 
