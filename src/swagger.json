@@ -19,6 +19,10 @@
     {
       "name": "Events",
       "description": "API for Events in the system"
+    },
+    {
+      "name": "Users",
+      "description": "API for Manage Users in the system"
     }
   ],
   "consumes": ["application/json"],
@@ -101,6 +105,20 @@
           }
         }
       }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -133,6 +151,20 @@
           "additionalProperties": {
             "$ref": "#/definitions/Events"
           }
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "createdBy": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
       }
     }
