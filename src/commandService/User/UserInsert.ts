@@ -5,18 +5,11 @@ import { user } from "../../models/UserTypes";
 import { mail } from "../../models/MailTypes";
 const bcrypt = require("bcryptjs");
 var generator = require("generate-password");
-const nodemailer = require("nodemailer");
-import { EMAIL, PASSWORD } from "../../config/constants";
+import { EMAIL, SENDGRID_API_KEY } from "../../config/constants";
 const collectionName = "Users";
 
-var transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: EMAIL,
-    pass: PASSWORD,
-    authentication: "plain",
-  },
-});
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(SENDGRID_API_KEY);
 
 const createUser = (data: user, callback: any) => {
   let currentDate: Date = new Date();
@@ -47,19 +40,31 @@ const createUser = (data: user, callback: any) => {
       dbInsertOne(user, collectionName, (result: any) => {
         let users: user = result;
         let mail: mail = {
-          from: EMAIL,
           to: user.email,
+          from: EMAIL,
           subject: "Intecs Web Site Loging Credentials",
           html:
             "<h1>Hello !</h1></br><p>The password for your Intecs account on Intecs Web.</p></br>" +
             password,
         };
-        transporter.sendMail(mail, function (error: any, info: any) {
-          assert.equal(error, null);
-          delete user.password;
-          delete user.saltSecret;
-          callback(true, "success", user);
-        });
+
+        (async () => {
+          try {
+            await sgMail.send(mail, (error: any, info: any) => {
+              assert.equal(error, null);
+              delete user.password;
+              delete user.saltSecret;
+
+              callback(true, "success", user);
+            });
+          } catch (error) {
+            console.error(error);
+
+            if (error.response) {
+              console.error(error.response.body);
+            }
+          }
+        })();
       });
     }
   });
