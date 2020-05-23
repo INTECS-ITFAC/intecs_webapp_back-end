@@ -1,13 +1,24 @@
 import { Request, Response } from "express";
 import { CrudController } from "../CrudController";
 import getAllUsers from "../../queryService/User/GetAllUsers";
+import createUser from "../../commandService/User/UserInsert";
 
 export class UserController extends CrudController {
   public create(
     req: Request<import("express-serve-static-core").ParamsDictionary>,
     res: Response
   ): void {
-    throw new Error("Method not implemented.");
+    createUser(req.body, (status: any, message: string, result: any) => {
+      if (status) {
+        res.status(201).json({ status: true, message: message, data: result });
+      } else {
+        res.status(409).json({
+          status: false,
+          message: message,
+          data: null,
+        });
+      }
+    });
   }
 
   public read(
