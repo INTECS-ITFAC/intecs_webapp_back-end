@@ -52,10 +52,13 @@ const createUser = (data: user, callback: any) => {
           try {
             await sgMail.send(mail, (error: any, info: any) => {
               assert.equal(error, null);
-              delete user.password;
-              delete user.saltSecret;
 
-              callback(true, "success", user);
+              const user_data = {
+                id: user._id,
+                email: user.email,
+                date: user.date,
+              };
+              callback(true, "success", user_data);
             });
           } catch (error) {
             console.error(error);
