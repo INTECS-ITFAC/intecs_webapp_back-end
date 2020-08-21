@@ -1,13 +1,18 @@
 import dbGetAll from "../../database/GetAll";
-import { user } from "../../models/UserTypes";
+import { user as UserSchema } from "../../models/UserTypes";
 
 const collectionName = "Users";
 
 const getAllUsers = (callback: any) => {
   dbGetAll(collectionName, (result: any) => {
-    let users: user[] = result;
-    users.map((user) => delete user.password);
-    callback(result);
+    const users: UserSchema[] = result.map((user: UserSchema) => {
+      return {
+        email: user.email,
+        date: user.date,
+        createdBy: user.createdBy,
+      };
+    });
+    callback(users);
   });
 };
 
